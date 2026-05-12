@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchor Scroll</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar {
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+    section {
+        padding: 20px;
+        margin-top: 60px; /* 考慮導航欄的高度 */
+        background-color: #f9f9f9;
+        height: 1000px;
+    }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="#section1">Section 1</a>
+    <a href="#section2">Section 2</a>
+    <a href="#section3">Section 3</a>
+</div>
+
+<section id="section1">
+    <h2>Section 1</h2>
+    <p>This is the content of section 1.</p>
+    <p><a href="#top">Back to top</a></p>
+</section>
+
+<section id="section2">
+    <h2>Section 2</h2>
+    <p>This is the content of section 2.</p>
+    <p><a href="#top">Back to top</a></p>
+</section>
+
+<section id="section3">
+    <h2>Section 3</h2>
+    <p>This is the content of section 3.</p>
+    <p><a href="#top">Back to top</a></p>
+</section>
+
+<script>
+    // 獲取導航欄的高度
+    var navbarHeight = document.querySelector('.navbar').offsetHeight;
+
+    // 點擊導航欄鏈接時滾動到相應的部分
+    document.querySelectorAll('.navbar a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = this.getAttribute('href').substring(1); // 去除 "#" 符號
+            var targetElement = document.getElementById(targetId);
+            var offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
